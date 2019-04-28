@@ -8,7 +8,8 @@
 #include "Filter.h"
 
 char signed coeff[ORDER] = {-0,1,-2,3,-4,5,-6,7,-8,9};
-int FilterOut = 0;
+char FilterIn[ORDER];
+int FilterOut;
 
 void UpdateCoeff(char *newcoeff) {
 	char i;

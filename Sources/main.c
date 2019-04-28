@@ -34,6 +34,7 @@
 #include "TI1.h"
 #include "Bits1.h"
 #include "Bit1.h"
+#include "FC1.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -47,24 +48,33 @@
 void main(void) {
 	/* Write your local variable definition here */
 	char i;
-	char data[ORDER] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 	/*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
 	PE_low_level_init();
 	/*** End of Processor Expert internal initialisation.                    ***/
 
-	Cpu_EnableInt();
+	Cpu_EnableInt()
+	;
 
-	for (i = 0; i < ORDER; i++) {
-		FilterOut += (coeff[i] * data[i]);
+	// Start the continuous conversion, trigger by hardware
+	//AD1_Start();
+
+	for (;;) {
+		if (is_Data_Ready) {
+			for (i = 0; i < ORDER; i++) {
+				FilterOut += coeff[i] * FilterIn[i];
+			}
+			AS1_SendChar((char) FilterOut);
+			is_Data_Ready = 0;
+		}
 	}
 
 	for (;;) {
 		// Send the data if the tx buffer is empty and the channels data is ready
-		if ((AS1_GetCharsInTxBuf() == 0) && (is_CH_Full == 1)) {
+		if ((AS1_GetCharsInTxBuf() == 0) && (is_Data_Ready == 1)) {
 			Pack(&Osc_Frame, Channels);							// Pack the data
 			AS1_SendBlock(&Osc_Frame, OSC_FRAME_SIZE, &BufferSerialCount);// Send the data
-			is_CH_Full = 0;			// Buffer data is empty
+			is_Data_Ready = 0;			// Buffer data is empty
 		}
 	}
 

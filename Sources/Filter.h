@@ -11,6 +11,7 @@
 #define ORDER 10
 
 extern signed char coeff[];
+extern char FilterIn[];
 extern int FilterOut;
 
 extern void UpdateCoeff(char *newcoeff);

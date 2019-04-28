@@ -281,7 +281,7 @@
           <boolgroup name="High speed mode" v="Enabled">
             <High_speed_clock v="Internal Clock" />
             <Bus_freq__divider v="Auto select" />
-            <Internal_bus_clock v="4.194304000000" />
+            <Internal_bus_clock v="4" />
             <Fixed_frequency_clock__MHz_ v="0.016384" />
             <enumgroup name="FLL mode" v="Engaged">
               <enumgroup name="Ref. clock source" v="Internal Clock">
@@ -837,19 +837,18 @@ asm(BGND);
         <A_D_interrupt v="Vadc" />
         <A_D_interrupt_priority v="medium priority" />
       </boolgroup>
-      <list name="A/D channels" v="2">
+      <list name="A/D channels" v="1">
         <group name="Channel0">
           <A_D_channel__pin_ v="PTA0_KBI1P0_TPM1CH0_ADP0_ACMP1PLUS" />
         </group>
-        <group name="Channel1">
-          <A_D_channel__pin_ v="PTA1_KBI1P1_TPM2CH0_ADP1_ACMP1MINUS" />
-        </group>
       </list>
-      <A_D_resolution v="12 bits" />
-      <Conversion_time v="46 &amp;#181;s" />
+      <A_D_resolution v="8 bits" />
+      <Conversion_time v="5 &amp;#181;s" />
       <Low_power_mode v="Disabled" />
       <Sample_time v="short" />
-      <boolgroup name="Internal trigger" v="Disabled" />
+      <boolgroup name="Internal trigger" v="Enabled">
+        <Internal_trigger_source v="RTC" />
+      </boolgroup>
       <Number_of_conversions v="1" />
       <group name="Initialization">
         <Enabled_in_init__code v="yes" />
@@ -866,11 +865,11 @@ asm(BGND);
       <Disable v="don&amp;apos;t generate code" />
       <EnableEvent v="don&amp;apos;t generate code" />
       <DisableEvent v="don&amp;apos;t generate code" />
-      <Start v="don&amp;apos;t generate code" />
+      <Start v="generate code" />
       <Stop v="don&amp;apos;t generate code" />
       <Measure v="generate code" />
       <MeasureChan v="don&amp;apos;t generate code" />
-      <EnableIntChanTrigger v="don&amp;apos;t generate code" />
+      <EnableIntChanTrigger v="generate code" />
       <GetValue v="generate code" />
       <GetChanValue v="don&amp;apos;t generate code" />
       <GetValue8 v="don&amp;apos;t generate code" />
@@ -1137,6 +1136,44 @@ autoselected pull
     </Methods>
     <Events>
       <EmptySection_DummyValue />
+    </Events>
+  </Bean>
+  <Bean name="FC1" type="FreeCntr">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="FC1" />
+      <Device v="RTCmod" />
+      <Counter v="RTC" />
+      <boolgroup name="Interrupt service/event" v="Disabled" />
+      <Period_offset v="1 ms" />
+      <Reset_counter_on_compare v="yes" />
+      <Same_period_in_modes v="yes" />
+      <Component_uses_entire_timer v="no" />
+      <group name="Initialization">
+        <Enabled_in_init__code v="yes" />
+        <Events_enabled_in_init_ v="yes" />
+      </group>
+      <group name="CPU clock/speed selection">
+        <High_speed_mode v="This component enabled" />
+        <Low_speed_mode v="This component disabled" />
+        <Slow_speed_mode v="This component disabled" />
+      </group>
+    </Properties>
+    <Methods>
+      <Enable v="don&amp;apos;t generate code" />
+      <Disable v="don&amp;apos;t generate code" />
+      <EnableEvent v="don&amp;apos;t generate code" />
+      <DisableEvent v="don&amp;apos;t generate code" />
+      <Reset v="generate code" />
+      <GetCounterValue v="generate code" />
+      <SetCompare v="don&amp;apos;t generate code" />
+      <GetStatus v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="OnInterrupt" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>

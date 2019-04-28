@@ -14,7 +14,7 @@
 #define CHB 1
 #define OSC_FRAME_SIZE 4
 
-extern volatile char is_CH_Full;
+extern volatile char is_Data_Ready;
 extern volatile char *BufferSerialCount;
 
 // Data struct for channels (Digitals & Analogs)

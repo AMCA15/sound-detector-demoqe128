@@ -8,7 +8,7 @@
 #include "Frame.h"
 
 int CH_Analog[2];
-volatile char is_CH_Full;
+volatile char is_Data_Ready;
 volatile char *BufferSerialCount;
 
 struct Frame Osc_Frame;
