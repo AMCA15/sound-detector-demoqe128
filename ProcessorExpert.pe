@@ -4,7 +4,7 @@
     <Name>sound-detector-demoqe128</Name>
     <SavedBy>Anderson</SavedBy>
     <ModificationStamp>94</ModificationStamp>
-    <Date>2019-04-27</Date>
+    <Date>2019-04-30</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.9.0.RT6_b1411-0406</PEversion>
   </Header>
@@ -8224,7 +8224,7 @@
         <ReadOnly>false</ReadOnly>
         <ListItemCount>1</ListItemCount>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>ADgrp0</ItemSymbol>

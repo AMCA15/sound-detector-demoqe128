@@ -20,11 +20,11 @@
 ** @brief
 **         This is user's event module.
 **         Put your event handler code here.
-*/         
+*/
 /*!
 **  @addtogroup Events_module Events module documentation
 **  @{
-*/         
+*/
 
 #ifndef __Events_H
 #define __Events_H
