@@ -149,6 +149,31 @@ void TI1_OnInterrupt(void) {
 	AD1_Measure(0);
 }
 
+/*
+** ===================================================================
+**     Event       :  FilterButton_OnInterrupt (module Events)
+**
+**     Component   :  FilterButton [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FilterButton_OnInterrupt(void)
+{
+  /* place your FilterButton interrupt procedure body here*/
+	if(FilterState==ON){
+		FilterState = OFF;
+		FilterLED_ClrVal();
+	}
+	else {
+		FilterState = ON;
+		FilterLED_SetVal();
+	}
+}
+
 /* END Events */
 
 /*!

@@ -35,6 +35,8 @@
 #include "Bits1.h"
 #include "Bit1.h"
 #include "FC1.h"
+#include "FilterButton.h"
+#include "FilterLED.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -53,23 +55,27 @@ void main(void) {
 	PE_low_level_init();
 	/*** End of Processor Expert internal initialisation.                    ***/
 
-	Cpu_EnableInt();
+	Cpu_EnableInt()
+	;
 
 	// Start the continuous conversion, trigger by hardware
 	//AD1_Start();
 
 	for (;;) {
 		if (is_Data_Ready) {
-			for (i = 0; i < ORDER; i++) {
-				FilterOut += coeff[i] * FilterIn[i];
+			if (FilterState == ON) {
+				for (i = 0; i < ORDER; i++) {
+					FilterOut += coeff[i] * FilterIn[i];
+				}
 			}
-
-			Channels[0].Data_Ana_L = (char) FilterOut;
-			Channels[0].Data_Ana_H = (char) ((FilterOut >> 6) | (0x03 & FilterOut));
-			Pack(&Osc_Frame, Channels);			// Pack the data
-			AS1_SendBlock(&Osc_Frame, OSC_FRAME_SIZE, &BufferSerialCount); // Send the data
-			is_Data_Ready = 0;
+			else
+				FilterOut = 255;	// For Testing
 		}
+		Channels[0].Data_Ana_L = (char) FilterOut;
+		Channels[0].Data_Ana_H = (char) ((FilterOut >> 6) | (0x03 & FilterOut));
+		Pack(&Osc_Frame, Channels);			// Pack the data
+		AS1_SendBlock(&Osc_Frame, OSC_FRAME_SIZE, &BufferSerialCount); // Send the data
+		is_Data_Ready = 0;
 	}
 
 	/*** Don't write any code pass this line, or it will be deleted during code generation. ***/

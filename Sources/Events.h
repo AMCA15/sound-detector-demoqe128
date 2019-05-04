@@ -40,6 +40,8 @@
 #include "Bits1.h"
 #include "Bit1.h"
 #include "FC1.h"
+#include "FilterButton.h"
+#include "FilterLED.h"
 
 
 void AD1_OnEnd(void);
@@ -130,6 +132,20 @@ void TI1_OnInterrupt(void);
 **         when the component is enabled - <Enable> and the events are
 **         enabled - <EnableEvent>). This event is enabled only if a
 **         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void FilterButton_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  FilterButton_OnInterrupt (module Events)
+**
+**     Component   :  FilterButton [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================

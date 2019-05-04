@@ -5,7 +5,7 @@
 **     Processor   : MC9S08QE128CLK
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2019-04-27, 12:04, # CodeGen: 7
+**     Date/Time   : 2019-05-03, 20:38, # CodeGen: 23
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -63,8 +63,9 @@
 #include "AS1.h"
 #include "TI1.h"
 #include "Bits1.h"
-#include "Bit1.h"
 #include "FC1.h"
+#include "FilterButton.h"
+#include "FilterLED.h"
 
 /*lint -save  -e950 Disable MISRA rule (1.1) checking. */
 static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table */
@@ -82,7 +83,7 @@ static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table *
          Cpu_Interrupt,                /* Int.no. 21 Vsci2err (at FFD4)              Unassigned */
          Cpu_Interrupt,                /* Int.no. 20 Vacmpx (at FFD6)                Unassigned */
          AD1_Interrupt,                /* Int.no. 19 Vadc (at FFD8)                  Used */
-         Cpu_Interrupt,                /* Int.no. 18 Vkeyboard (at FFDA)             Unassigned */
+         FilterButton_Interrupt,       /* Int.no. 18 Vkeyboard (at FFDA)             Used */
          Cpu_Interrupt,                /* Int.no. 17 Viicx (at FFDC)                 Unassigned */
          AS1_InterruptTx,              /* Int.no. 16 Vsci1tx (at FFDE)               Used */
          AS1_InterruptRx,              /* Int.no. 15 Vsci1rx (at FFE0)               Used */

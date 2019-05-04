@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2019-04-27, 12:04, # CodeGen: 7
+**     Date/Time   : 2019-05-03, 20:38, # CodeGen: 23
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -71,8 +71,9 @@
 #include "AS1.h"
 #include "TI1.h"
 #include "Bits1.h"
-#include "Bit1.h"
 #include "FC1.h"
+#include "FilterButton.h"
+#include "FilterLED.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -271,16 +272,16 @@ void PE_low_level_init(void)
   clrSetReg8Bits(PTBDD, 0x01U, 0x02U);  
   /* PTBD: PTBD1=1 */
   setReg8Bits(PTBD, 0x02U);             
-  /* PTCPE: PTCPE2=1,PTCPE1=1 */
-  setReg8Bits(PTCPE, 0x06U);            
-  /* PTCDD: PTCDD2=0,PTCDD1=0 */
-  clrReg8Bits(PTCDD, 0x06U);            
-  /* PTDD: PTDD7=0 */
-  clrReg8Bits(PTDD, 0x80U);             
-  /* PTDPE: PTDPE7=0 */
-  clrReg8Bits(PTDPE, 0x80U);            
-  /* PTDDD: PTDDD7=1 */
-  setReg8Bits(PTDDD, 0x80U);            
+  /* PTCD: PTCD0=0 */
+  clrReg8Bits(PTCD, 0x01U);             
+  /* PTCPE: PTCPE2=1,PTCPE1=1,PTCPE0=0 */
+  clrSetReg8Bits(PTCPE, 0x01U, 0x06U);  
+  /* PTCDD: PTCDD2=0,PTCDD1=0,PTCDD0=1 */
+  clrSetReg8Bits(PTCDD, 0x06U, 0x01U);  
+  /* PTADD: PTADD2=0 */
+  clrReg8Bits(PTADD, 0x04U);            
+  /* PTAPE: PTAPE2=0 */
+  clrReg8Bits(PTAPE, 0x04U);            
   /* PTASE: PTASE7=0,PTASE6=0,PTASE4=0,PTASE3=0,PTASE2=0,PTASE1=0,PTASE0=0 */
   clrReg8Bits(PTASE, 0xDFU);            
   /* PTBSE: PTBSE7=0,PTBSE6=0,PTBSE5=0,PTBSE4=0,PTBSE3=0,PTBSE2=0,PTBSE1=0,PTBSE0=0 */
@@ -325,9 +326,16 @@ void PE_low_level_init(void)
   /* ### TimerInt "TI1" init code ... */
   TI1_Init();
   /* ### BitsIO "Bits1" init code ... */
-  /* ### BitIO "Bit1" init code ... */
   /* ### FreeCntr "FC1" init code ... */
   FC1_Init();
+  /* ### External interrupt "FilterButton" init code ... */
+  /* KBI1PE: KBIPE2=1 */
+  KBI1PE |= 0x04U;
+  /* KBI1SC: ??=0,??=0,??=0,??=0,KBF=0,KBACK=0,KBIE=0,KBIMOD=0 */
+  setReg8(KBI1SC, 0x00U);               
+  KBI1SC_KBACK = 0x01U;                /* Clear Interrupt flag */
+  KBI1SC_KBIE = 0x01U;
+  /* ### BitIO "FilterLED" init code ... */
   CCR_lock = (byte)0;
   __EI();                              /* Enable interrupts */
 }
