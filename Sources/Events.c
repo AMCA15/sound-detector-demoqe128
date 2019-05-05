@@ -180,21 +180,46 @@ void FilterButton_OnInterrupt(void) {
  */
 void AS1_OnRxCharExt(AS1_TComData Chr) {
 	/* Write your code here ... */
+	static char State = IDLE;
+	static char i;
+	static char Checksum;
+
 	char OpCode = Chr & OPCODEMASK;
 	char OpData = Chr & OPDATA;
 
-	switch (OpCode) {
-	case OPCODEBUZZER:
-		if (OpData == ON) {
-			Buzzer_Enable();
+	if (State == BUSY) {
+		if (i < ORDER) {
+			NewCoeff[i] = Chr;		 // Save the new coefficients in a temporary buffer for check integrity
+			Checksum ^= Chr;		 // before update them
+			i++;
 		} else {
-			Buzzer_Disable();
+			if (Checksum == Chr) {   // Only update the coefficients if theirs value are OK
+				UpdateCoeff(NewCoeff);
+			}
+			State = IDLE;			 // Finish the update process
+			OpCode = 0;				 // Force to skip the next else in this loop
 		}
-		break;
-	case OPCODEUPCOEFF:
-		break;
+	}
+	else {
+		switch (OpCode) {
+
+			case OPCODEBUZZER:
+			if (OpData == ON) {
+				Buzzer_Enable();
+			} else {
+				Buzzer_Disable();
+			}
+			break;
+
+			case OPCODEUPCOEFF:
+			State = BUSY;			 // Start the update filter's coefficients process
+			Checksum = 0;
+			i = 0;
+			break;
+		}
 	}
 }
+
 
 /* END Events */
 
