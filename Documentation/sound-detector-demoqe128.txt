@@ -71,6 +71,22 @@ Module "FilterLED" (component BitIO)
    - FilterLED_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
                 the direction = _[output]_ or _[input/output]_.
 
+Module "Buzzer"    (component PWM)
+   - Buzzer_Enable -This method enables the component - it starts the signal generation. Events may be generated 
+                (<DisableEvent>/<EnableEvent>).
+   - Buzzer_Disable -This method disables the component - it stops the signal generation and events calling. When the timer is 
+                disabled, it is possible to call <ClrValue> and <SetValue> methods.
+   - Buzzer_SetRatio16 -This method sets a new duty-cycle ratio. Ratio is expressed as a 16-bit unsigned integer number. 0 - 
+                FFFF value is proportional to ratio 0 - 100%. The method is available only if it is not selected list of 
+                predefined values in <Starting pulse width> property.   Note: Calculated duty depends on the timer 
+                possibilities and on the selected period.
+   - Buzzer_SetDutyUS -This method sets the new duty value of the output signal. The duty is expressed in microseconds as a 
+                16-bit unsigned integer number. The method is available only if it is not selected list of predefined values in 
+                <Starting pulse width> property.
+   - Buzzer_SetDutyMS -This method sets the new duty value of the output signal. The duty is expressed in milliseconds as a 
+                16-bit unsigned integer number. The method is available only if it is not selected list of predefined values in 
+                <Starting pulse width> property.
+
 Module "Cpu"       (component MC9S08QE128_80)
    - Cpu_EnableInt -Enables maskable interrupts
    - Cpu_DisableInt -Disables maskable interrupts

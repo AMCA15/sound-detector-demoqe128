@@ -34,6 +34,7 @@
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
+#include "PE_Timer.h"
 #include "AD1.h"
 #include "AS1.h"
 #include "TI1.h"
@@ -42,6 +43,7 @@
 #include "FC1.h"
 #include "FilterButton.h"
 #include "FilterLED.h"
+#include "Buzzer.h"
 
 
 void AD1_OnEnd(void);
@@ -72,23 +74,6 @@ void AS1_OnError(void);
 **         using <GetError> method.
 **         The event is available only when the <Interrupt
 **         service/event> property is enabled.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-
-void AS1_OnRxChar(void);
-/*
-** ===================================================================
-**     Event       :  AS1_OnRxChar (module Events)
-**
-**     Component   :  AS1 [AsynchroSerial]
-**     Description :
-**         This event is called after a correct character is received.
-**         The event is available only when the <Interrupt
-**         service/event> property is enabled and either the <Receiver>
-**         property is enabled or the <SCI output mode> property (if
-**         supported) is set to Single-wire mode.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================
@@ -147,6 +132,32 @@ void FilterButton_OnInterrupt(void);
 **         This event is called when an active signal edge/level has
 **         occurred.
 **     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void AS1_OnRxCharExt(AS1_TComData Chr);
+/*
+** ===================================================================
+**     Event       :  AS1_OnRxCharExt (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called after a correct character is received.
+**         The last received character is passed as a parameter of the
+**         event function.
+**         Nevertheless, the last received character is placed in the
+**         external buffer of the component.
+**         This event is identical in function with the <OnRxChar>
+**         event with a parameter added. It is not recommended to use
+**         both <OnRxChar> and OnRxCharExt events at the same time.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled and either the <Receiver>
+**         property is enabled or the <SCI output mode> property (if
+**         supported) is set to Single-wire mode.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         Chr             - The last character correctly received.
 **     Returns     : Nothing
 ** ===================================================================
 */

@@ -6,7 +6,7 @@
 **     Component   : AsynchroSerial
 **     Version     : Component 02.611, Driver 01.33, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2019-04-26, 21:11, # CodeGen: 0
+**     Date/Time   : 2019-05-05, 13:59, # CodeGen: 24
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -355,21 +355,19 @@ ISR(AS1_InterruptRx)
   byte StatReg = SCI1S1;               /* Temporary variable for status flags */
   AS1_TComData Data = SCI1D;           /* Read data from the receiver into temporary variable for data */
 
+  OnFlags |= ON_RX_CHAR_EXT;           /* Set flag "OnRxCharExt" */
   if (SerFlag & CHAR_IN_RX) {          /* Is any char already present in the receive buffer? */
     SerFlag |= OVERRUN_ERR;            /* If yes then set flag OVERRUN_ERR */
     OnFlags |= ON_ERROR;               /* Set flag "OnError" */
   } else {
     BufferRead = Data;                 /* Copy data into global buffer variable */
     SerFlag |= CHAR_IN_RX;             /* Set flag "char in RX buffer" */
-    OnFlags |= ON_RX_CHAR;             /* Set flag "OnRxChar" */
+  }
+  if (OnFlags & ON_RX_CHAR_EXT) {      /* Is OnRxCharExt flag set? */
+    AS1_OnRxCharExt(Data);             /* If the SW overun error is detected correct data has been available */
   }
   if (OnFlags & ON_ERROR) {            /* Is OnError flag set? */
     AS1_OnError();                     /* If yes then invoke user event */
-  }
-  else {
-    if (OnFlags & ON_RX_CHAR) {        /* Is OnRxChar flag set? */
-      AS1_OnRxChar();                  /* If yes then invoke user event */
-    }
   }
 }
 

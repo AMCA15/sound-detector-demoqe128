@@ -983,11 +983,11 @@ asm(BGND);
         <Event_procedure_name v="AS1_OnError" />
         <Priority v="same as interrupt" />
       </event>
-      <event name="OnRxChar" v="generate code">
-        <Event_procedure_name v="AS1_OnRxChar" />
+      <event name="OnRxChar" v="don&amp;apos;t generate code" />
+      <event name="OnRxCharExt" v="generate code">
+        <Event_procedure_name v="AS1_OnRxCharExt" />
         <Priority v="same as interrupt" />
       </event>
-      <event name="OnRxCharExt" v="don&amp;apos;t generate code" />
       <event name="OnTxChar" v="generate code">
         <Event_procedure_name v="AS1_OnTxChar" />
         <Priority v="same as interrupt" />
@@ -1143,7 +1143,7 @@ push-pull
     <Enabled v="Y" />
     <Properties>
       <Component_name v="FilterButton" />
-      <Pin v="PTD1_KBI2P1_MOSI2" />
+      <Pin v="PTA2_KBI1P2_SDA1_ADP2" />
       <Pull_resistor sel_value="no pull resistor">
         
 autoselected pull
@@ -1175,6 +1175,92 @@ rising or falling edge
         <Event_procedure_name v="FilterButton_OnInterrupt" />
         <Priority v="same as interrupt" />
       </event>
+    </Events>
+  </Bean>
+  <Bean name="FilterLED" type="BitIO">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="FilterLED" />
+      <Pin_for_I_O v="PTC0_TPM3CH0" />
+      <Pull_resistor sel_value="no pull resistor">
+        
+autoselected pull
+
+        <EmptySection_DummyValue />
+      </Pull_resistor>
+      <Open_drain v="push-pull" />
+      <Slew_rate_control_for_PTC0 v="no" />
+      <Drive_strength_for_PTC0 v="High" />
+      <Direction v="Output" />
+      <group name="Initialization">
+        <Init__direction v="Output" />
+        <Init__value v="0" />
+      </group>
+      <Safe_mode v="yes" />
+      <Optimization_for v="speed" />
+    </Properties>
+    <Methods>
+      <GetDir v="don&amp;apos;t generate code" />
+      <SetDir v="don&amp;apos;t generate code" />
+      <SetInput v="don&amp;apos;t generate code" />
+      <SetOutput v="don&amp;apos;t generate code" />
+      <GetVal v="generate code" />
+      <PutVal v="generate code" />
+      <ClrVal v="generate code" />
+      <SetVal v="generate code" />
+      <NegVal v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <EmptySection_DummyValue />
+    </Events>
+  </Bean>
+  <Bean name="Buzzer" type="PWM">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="Buzzer" />
+      <PWM_or_PPG_device v="TPM20" />
+      <Duty_compare v="" />
+      <Output_pin v="PTA1_KBI1P1_TPM2CH0_ADP1_ACMP1MINUS" />
+      <Counter v="TPM2" />
+      <boolgroup name="Interrupt service/event" v="Disabled" />
+      <Period v="2000 ms" />
+      <Starting_pulse_width v="1000 ms" />
+      <Aligned v="Edge" />
+      <Initial_polarity v="low" />
+      <Same_period_in_modes v="no" />
+      <Component_uses_entire_timer v="no" />
+      <group name="Initialization">
+        <Enabled_in_init__code v="no" />
+        <Events_enabled_in_init_ v="yes" />
+      </group>
+      <group name="CPU clock/speed selection">
+        <High_speed_mode v="This component enabled" />
+        <Low_speed_mode v="This component disabled" />
+        <Slow_speed_mode v="This component disabled" />
+      </group>
+    </Properties>
+    <Methods>
+      <Enable v="generate code" />
+      <Disable v="generate code" />
+      <EnableEvent v="don&amp;apos;t generate code" />
+      <DisableEvent v="don&amp;apos;t generate code" />
+      <SetRatio8 v="don&amp;apos;t generate code" />
+      <SetRatio16 v="generate code" />
+      <SetDutyTicks16 v="don&amp;apos;t generate code" />
+      <SetDutyTicks32 v="don&amp;apos;t generate code" />
+      <SetDutyUS v="generate code" />
+      <SetDutyMS v="generate code" />
+      <SetDutySec v="don&amp;apos;t generate code" />
+      <SetDutyReal v="don&amp;apos;t generate code" />
+      <SetDutyMode v="don&amp;apos;t generate code" />
+      <SetValue v="don&amp;apos;t generate code" />
+      <ClrValue v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="OnEnd" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>

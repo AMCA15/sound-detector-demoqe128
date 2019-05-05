@@ -31,6 +31,7 @@
 #include "Events.h"
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "Defines.h"
 #include "Frame.h"
 #include "Filter.h"
 
@@ -77,25 +78,6 @@ void AD1_OnEnd(void) {
  ** ===================================================================
  */
 void AS1_OnError(void) {
-	/* Write your code here ... */
-}
-
-/*
- ** ===================================================================
- **     Event       :  AS1_OnRxChar (module Events)
- **
- **     Component   :  AS1 [AsynchroSerial]
- **     Description :
- **         This event is called after a correct character is received.
- **         The event is available only when the <Interrupt
- **         service/event> property is enabled and either the <Receiver>
- **         property is enabled or the <SCI output mode> property (if
- **         supported) is set to Single-wire mode.
- **     Parameters  : None
- **     Returns     : Nothing
- ** ===================================================================
- */
-void AS1_OnRxChar(void) {
 	/* Write your code here ... */
 }
 
@@ -150,27 +132,67 @@ void TI1_OnInterrupt(void) {
 }
 
 /*
-** ===================================================================
-**     Event       :  FilterButton_OnInterrupt (module Events)
-**
-**     Component   :  FilterButton [ExtInt]
-**     Description :
-**         This event is called when an active signal edge/level has
-**         occurred.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void FilterButton_OnInterrupt(void)
-{
-  /* place your FilterButton interrupt procedure body here*/
-	if(FilterState==ON){
+ ** ===================================================================
+ **     Event       :  FilterButton_OnInterrupt (module Events)
+ **
+ **     Component   :  FilterButton [ExtInt]
+ **     Description :
+ **         This event is called when an active signal edge/level has
+ **         occurred.
+ **     Parameters  : None
+ **     Returns     : Nothing
+ ** ===================================================================
+ */
+void FilterButton_OnInterrupt(void) {
+	/* place your FilterButton interrupt procedure body here*/
+	if (FilterState == ON) {
 		FilterState = OFF;
 		FilterLED_ClrVal();
-	}
-	else {
+	} else {
 		FilterState = ON;
 		FilterLED_SetVal();
+	}
+}
+
+/*
+ ** ===================================================================
+ **     Event       :  AS1_OnRxCharExt (module Events)
+ **
+ **     Component   :  AS1 [AsynchroSerial]
+ **     Description :
+ **         This event is called after a correct character is received.
+ **         The last received character is passed as a parameter of the
+ **         event function.
+ **         Nevertheless, the last received character is placed in the
+ **         external buffer of the component.
+ **         This event is identical in function with the <OnRxChar>
+ **         event with a parameter added. It is not recommended to use
+ **         both <OnRxChar> and OnRxCharExt events at the same time.
+ **         The event is available only when the <Interrupt
+ **         service/event> property is enabled and either the <Receiver>
+ **         property is enabled or the <SCI output mode> property (if
+ **         supported) is set to Single-wire mode.
+ **     Parameters  :
+ **         NAME            - DESCRIPTION
+ **         Chr             - The last character correctly received.
+ **     Returns     : Nothing
+ ** ===================================================================
+ */
+void AS1_OnRxCharExt(AS1_TComData Chr) {
+	/* Write your code here ... */
+	char OpCode = Chr & OPCODEMASK;
+	char OpData = Chr & OPDATA;
+
+	switch (OpCode) {
+	case OPCODEBUZZER:
+		if (OpData == ON) {
+			Buzzer_Enable();
+		} else {
+			Buzzer_Disable();
+		}
+		break;
+	case OPCODEUPCOEFF:
+		break;
 	}
 }
 

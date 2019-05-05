@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2019-05-03, 20:38, # CodeGen: 23
+**     Date/Time   : 2019-05-05, 13:59, # CodeGen: 24
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -74,10 +74,12 @@
 #include "FC1.h"
 #include "FilterButton.h"
 #include "FilterLED.h"
+#include "Buzzer.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
+#include "PE_Timer.h"
 #include "Events.h"
 #include "Cpu.h"
 
@@ -278,10 +280,12 @@ void PE_low_level_init(void)
   clrSetReg8Bits(PTCPE, 0x01U, 0x06U);  
   /* PTCDD: PTCDD2=0,PTCDD1=0,PTCDD0=1 */
   clrSetReg8Bits(PTCDD, 0x06U, 0x01U);  
-  /* PTADD: PTADD2=0 */
-  clrReg8Bits(PTADD, 0x04U);            
+  /* PTADD: PTADD2=0,PTADD1=1 */
+  clrSetReg8Bits(PTADD, 0x04U, 0x02U);  
   /* PTAPE: PTAPE2=0 */
   clrReg8Bits(PTAPE, 0x04U);            
+  /* PTAD: PTAD1=0 */
+  clrReg8Bits(PTAD, 0x02U);             
   /* PTASE: PTASE7=0,PTASE6=0,PTASE4=0,PTASE3=0,PTASE2=0,PTASE1=0,PTASE0=0 */
   clrReg8Bits(PTASE, 0xDFU);            
   /* PTBSE: PTBSE7=0,PTBSE6=0,PTBSE5=0,PTBSE4=0,PTBSE3=0,PTBSE2=0,PTBSE1=0,PTBSE0=0 */
@@ -336,6 +340,8 @@ void PE_low_level_init(void)
   KBI1SC_KBACK = 0x01U;                /* Clear Interrupt flag */
   KBI1SC_KBIE = 0x01U;
   /* ### BitIO "FilterLED" init code ... */
+  /* ### Programable pulse generation "Buzzer" init code ... */
+  Buzzer_Init();
   CCR_lock = (byte)0;
   __EI();                              /* Enable interrupts */
 }

@@ -9,11 +9,10 @@
 #define FILTER_H_
 
 #define ORDER 10
-#define ON    1
-#define OFF   0
 
 extern char FilterState;
-extern signed char coeff[];
+extern signed char Coeff[];
+extern char signed NewCoeff[];
 extern char FilterIn[];
 extern int FilterOut;
 

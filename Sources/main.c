@@ -37,6 +37,7 @@
 #include "FC1.h"
 #include "FilterButton.h"
 #include "FilterLED.h"
+#include "Buzzer.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -44,6 +45,7 @@
 #include "IO_Map.h"
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "Defines.h"
 #include "Filter.h"
 #include "Frame.h"
 
@@ -65,7 +67,7 @@ void main(void) {
 		if (is_Data_Ready) {
 			if (FilterState == ON) {
 				for (i = 0; i < ORDER; i++) {
-					FilterOut += coeff[i] * FilterIn[i];
+					FilterOut += Coeff[i] * FilterIn[i];
 				}
 			}
 			else
@@ -84,10 +86,9 @@ void main(void) {
 	PEX_RTOS_START(); /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
 #endif
 	/*** End of RTOS startup code.  ***/
-	/*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
-	for (;;) {
-	}
-	/*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+  for(;;){}
+  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 /* END main */
