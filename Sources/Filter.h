@@ -8,7 +8,7 @@
 #ifndef FILTER_H_
 #define FILTER_H_
 
-#define ORDER 10
+#define ORDER 21
 
 extern char FilterState;
 extern signed char Coeff[];

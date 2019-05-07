@@ -8,7 +8,8 @@
 #include "Filter.h"
 
 char FilterState;
-char signed Coeff[ORDER] = { -0, 1, -2, 3, -4, 5, -6, 7, -8, 9 };
+// A High-Pass Filter with Fc = 0.4
+char signed Coeff[ORDER] = {0, 0, -1, -2, -1, 4, 9, 2, -23, -54, 127, -54, -23, 2, 9, 4, -1, -2, -1, 0, 0};
 char signed NewCoeff[ORDER];
 char FilterIn[ORDER];
 int FilterOut;

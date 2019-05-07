@@ -62,6 +62,8 @@ void main(void) {
 
 	// Start the continuous conversion, trigger by hardware
 	//AD1_Start();
+	
+	FilterState = ON;
 
 	for (;;) {
 		if (is_Data_Ready) {
@@ -69,15 +71,16 @@ void main(void) {
 				for (i = 0; i < ORDER; i++) {
 					FilterOut += Coeff[i] * FilterIn[i];
 				}
-			}
-			else
+			} else {
 				FilterOut = 255;	// For Testing
+
+			}
+			Channels[0].Data_Ana_L = (char) FilterOut;
+			Channels[0].Data_Ana_H = (char) ((FilterOut >> 6) | (0x03 & FilterOut));
+			Pack(&Osc_Frame, Channels);			// Pack the data
+			AS1_SendBlock(&Osc_Frame, OSC_FRAME_SIZE, &BufferSerialCount); // Send the data
+			is_Data_Ready = 0;
 		}
-		Channels[0].Data_Ana_L = (char) FilterOut;
-		Channels[0].Data_Ana_H = (char) ((FilterOut >> 6) | (0x03 & FilterOut));
-		Pack(&Osc_Frame, Channels);			// Pack the data
-		AS1_SendBlock(&Osc_Frame, OSC_FRAME_SIZE, &BufferSerialCount); // Send the data
-		is_Data_Ready = 0;
 	}
 
 	/*** Don't write any code pass this line, or it will be deleted during code generation. ***/
@@ -86,9 +89,10 @@ void main(void) {
 	PEX_RTOS_START(); /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
 #endif
 	/*** End of RTOS startup code.  ***/
-  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
-  for(;;){}
-  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+	/*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+	for (;;) {
+	}
+	/*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 /* END main */
