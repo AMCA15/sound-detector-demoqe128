@@ -1230,7 +1230,7 @@ autoselected pull
       <Same_period_in_modes v="no" />
       <Component_uses_entire_timer v="no" />
       <group name="Initialization">
-        <Enabled_in_init__code v="no" />
+        <Enabled_in_init__code v="yes" />
         <Events_enabled_in_init_ v="yes" />
       </group>
       <group name="CPU clock/speed selection">

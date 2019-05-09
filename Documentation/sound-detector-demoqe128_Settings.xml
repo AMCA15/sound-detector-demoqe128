@@ -651,7 +651,7 @@ asm(BGND);
           <boolgroup name="High speed mode" v="Enabled">
             <High_speed_clock v="Internal Clock" />
             <Bus_freq__divider v="Auto select" />
-            <Internal_bus_clock v="25.165824000000" />
+            <Internal_bus_clock v="19.922944000000" />
             <Fixed_frequency_clock__MHz_ v="0.016384" />
             <enumgroup name="FLL mode" v="Engaged">
               <enumgroup name="Ref. clock source" v="Internal Clock">
@@ -660,7 +660,7 @@ asm(BGND);
               <enumgroup name="DCO mode" v="Auto select">
                 <EmptySection_DummyValue />
               </enumgroup>
-              <FLL_output_clock_freq___MHz_ v="50.331648000000" />
+              <FLL_output_clock_freq___MHz_ v="39.845888000000" />
             </enumgroup>
           </boolgroup>
           <boolgroup name="Low speed mode" v="Disabled" />
@@ -1144,18 +1144,8 @@ push-pull
     <Properties>
       <Component_name v="FilterButton" />
       <Pin v="PTA2_KBI1P2_SDA1_ADP2" />
-      <Pull_resistor sel_value="no pull resistor">
-        
-autoselected pull
-
-        <EmptySection_DummyValue />
-      </Pull_resistor>
-      <Generate_interrupt_on sel_value="falling edge">
-        
-rising or falling edge
-
-        <EmptySection_DummyValue />
-      </Generate_interrupt_on>
+      <Pull_resistor v="pull up" />
+      <Generate_interrupt_on v="falling edge" />
       <Invert_interrupt_trigger_condition v="no" />
       <Interrupt v="Vkeyboard" />
       <Interrupt_priority v="medium priority" />
@@ -1218,19 +1208,19 @@ autoselected pull
     <Enabled v="Y" />
     <Properties>
       <Component_name v="Buzzer" />
-      <PWM_or_PPG_device v="TPM20" />
+      <PWM_or_PPG_device v="TPM33" />
       <Duty_compare v="" />
-      <Output_pin v="PTA1_KBI1P1_TPM2CH0_ADP1_ACMP1MINUS" />
-      <Counter v="TPM2" />
+      <Output_pin v="PTC3_TPM3CH3" />
+      <Counter v="TPM3" />
       <boolgroup name="Interrupt service/event" v="Disabled" />
-      <Period v="2000 ms" />
-      <Starting_pulse_width v="1000 ms" />
+      <Period v="4 sec" />
+      <Starting_pulse_width v="2 sec" />
       <Aligned v="Edge" />
       <Initial_polarity v="low" />
       <Same_period_in_modes v="no" />
       <Component_uses_entire_timer v="no" />
       <group name="Initialization">
-        <Enabled_in_init__code v="yes" />
+        <Enabled_in_init__code v="no" />
         <Events_enabled_in_init_ v="yes" />
       </group>
       <group name="CPU clock/speed selection">
