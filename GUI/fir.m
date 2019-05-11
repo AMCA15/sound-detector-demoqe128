@@ -7,10 +7,13 @@ classdef fir < handle
         f2
         m
         FilterType
+        % Data test
+        dataTest
     end
     
     properties(Dependent)
-        coeff = round(fir2(obj.n, obj.f_, obj.m_));
+        coeff
+        dataTestFiltered
     end
     
     properties(Hidden)
@@ -20,6 +23,8 @@ classdef fir < handle
     
     properties(Dependent, Hidden)
         coeff_format
+        dataTest_format
+        dataTestFiltered_format
     end
         
     methods
@@ -49,9 +54,34 @@ classdef fir < handle
             value = round(fir2(obj.n, obj.freq, obj.mag));
         end
         
-        function coeff_format = get.coeff_format(obj)
+        function value = get.dataTestFiltered(obj)
+            value = filter(obj.coeff, 1, obj.dataTest);
+        end
+        
+        function value = get.coeff_format(obj)
             str = sprintf('%d, ', obj.coeff);
-            coeff_format = sprintf("{%s}\n", str(1:end-2));
+            value = sprintf("{%s}\n", str(1:end-2));
+        end
+        
+        function value = get.dataTestFiltered_format(obj)
+            str = sprintf('%d, ', obj.dataTestFiltered);
+            value = sprintf("{%s}\n", str(1:end-2));
+        end
+        
+        function obj = generateDataTest(obj, type, dimension)
+            if nargin == 1
+                return
+            elseif nargin == 2
+                dim = obj.n + 1;
+            elseif nargin == 3
+                dim = dimension;
+            end
+            switch type
+                case 'random'
+                    obj.dataTest = randi(obj.m, 1, dim, 'int8');
+                case 'linear'
+                    obj.dataTest = int8(1:dim);
+            end
         end
                 
         function plot(obj)
@@ -73,6 +103,14 @@ classdef fir < handle
         
         function value = coeffPacked(obj)
             value = int8([20 obj.coeff]);
+        end
+        
+        function dispDataTestFiltered(obj)
+            fprintf(obj.dataTestFiltered_format);
+        end
+        
+        function copyDataTestFiltered(obj)
+            clipboard('copy', obj.dataTestFiltered_format); 
         end
         
     end
