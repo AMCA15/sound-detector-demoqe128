@@ -57,8 +57,7 @@ void main(void) {
 	PE_low_level_init();
 	/*** End of Processor Expert internal initialisation.                    ***/
 
-	Cpu_EnableInt()
-	;
+	Cpu_EnableInt();
 
 	// Start the continuous conversion, trigger by hardware
 	//AD1_Start();
@@ -74,6 +73,15 @@ void main(void) {
 			} else {
 				FilterOut = 255;	// For Testing
 			}
+
+#ifdef FILTERTEST
+			if(FilterOut != TestDataFiltered[TestNumber])
+			while (1);
+			if(TestNumber == TESTSIZE)
+			while(1);
+			TestNumber++;
+#endif
+
 			Channels[0].Data_Ana_L = (char) FilterOut;
 			Channels[0].Data_Ana_H = (char) ((FilterOut >> 6) | (0x03 & FilterOut));
 			Pack(&Osc_Frame, Channels);			// Pack the data
@@ -89,9 +97,10 @@ void main(void) {
 	PEX_RTOS_START(); /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
 #endif
 	/*** End of RTOS startup code.  ***/
-  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
-  for(;;){}
-  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+	/*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+	for (;;) {
+	}
+	/*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 /* END main */

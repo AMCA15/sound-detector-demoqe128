@@ -10,11 +10,19 @@
 
 #define ORDER 21
 
+#define FILTERTEST    // Uncomment for use the filter test mode
+#define TESTSIZE 21
+
 extern char FilterState;
 extern signed char Coeff[];
 extern char signed NewCoeff[];
 extern char FilterIn[];
 extern int FilterOut;
+
+// Test Data
+extern char TestNumber;
+extern char TestData[];
+extern int TestDataFiltered[];
 
 extern void UpdateCoeff(char *newcoeff);
 

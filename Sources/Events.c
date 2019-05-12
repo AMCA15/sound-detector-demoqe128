@@ -52,8 +52,13 @@
 void AD1_OnEnd(void) {
 	static char i = 0;
 
+#ifdef FILTERTEST
+	FilterIn[i] = TestData[i];
+#else
 	AD1_GetValue(&FilterIn[i]);
-	is_Data_Ready = 1;			// Flag for data ready
+#endif
+
+	is_Data_Ready = 1;		// Flag for data ready
 	Bit1_NegVal();			// For checking sample frequency
 
 	if (i < ORDER)
@@ -188,7 +193,7 @@ void AS1_OnRxCharExt(AS1_TComData Chr) {
 
 	if (State == BUSY) {
 		if (i < ORDER) {
-			NewCoeff[i] = Chr;       // Save the new coefficients in a temporary buffer before update them
+			NewCoeff[i] = Chr; // Save the new coefficients in a temporary buffer before update them
 			i++;
 		} else {
 			UpdateCoeff(NewCoeff);

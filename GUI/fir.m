@@ -62,6 +62,11 @@ classdef fir < handle
             str = sprintf('%d, ', obj.coeff);
             value = sprintf("{%s}\n", str(1:end-2));
         end
+
+        function value = get.dataTest_format(obj)
+            str = sprintf('%d, ', obj.dataTest);
+            value = sprintf("{%s}\n", str(1:end-2));
+        end
         
         function value = get.dataTestFiltered_format(obj)
             str = sprintf('%d, ', obj.dataTestFiltered);
@@ -104,7 +109,14 @@ classdef fir < handle
         function value = coeffPacked(obj)
             value = int8([20 obj.coeff]);
         end
+
+        function dispDataTest(obj)
+            fprintf(obj.dataTest_format);
+        end
         
+        function copyDataTest(obj)
+            clipboard('copy', obj.dataTest_format); 
+        end
         function dispDataTestFiltered(obj)
             fprintf(obj.dataTestFiltered_format);
         end
