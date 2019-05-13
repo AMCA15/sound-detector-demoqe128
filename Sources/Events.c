@@ -52,19 +52,21 @@
 void AD1_OnEnd(void) {
 	static char i = 0;
 
+	if (fpos < ORDER - 1)
+		fpos++;
+	else
+		fpos = 0;
+	
 #ifdef FILTERTEST
-	FilterIn[i] = TestData[i];
+	FilterIn[fpos] = TestData[i];
+	i++;
 #else
-	AD1_GetValue(&FilterIn[i]);
+	AD1_GetValue(&FilterIn[fpos]);
 #endif
 
 	is_Data_Ready = 1;		// Flag for data ready
 	Bit1_NegVal();			// For checking sample frequency
-
-	if (i < ORDER)
-		i++;
-	else
-		i = 0;
+	
 }
 
 /*

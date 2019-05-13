@@ -52,7 +52,8 @@
 void main(void) {
 	/* Write your local variable definition here */
 	char i;
-	
+	char index;
+
 	/*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
 	PE_low_level_init();
 	/*** End of Processor Expert internal initialisation.                    ***/
@@ -67,18 +68,25 @@ void main(void) {
 	for (;;) {
 		if (is_Data_Ready) {
 			if (FilterState == ON) {
-				for (i = 0; i < ORDER; i++) {
-					FilterOut += Coeff[i] * FilterIn[i];
+				index = fpos;
+				if (index == 255) {
+					index = ORDER;
+				}
+				for (i = 0, FilterOut = 0; i < ORDER; i++, index--) {
+					FilterOut += Coeff[i] * FilterIn[index];
+					if (index == 0) {
+						index = ORDER;
+					}
 				}
 			} else {
-				FilterOut = 255;	// For Testing
+				FilterOut = FilterIn[fpos];
 			}
 
 #ifdef FILTERTEST
-			if(FilterOut != TestDataFiltered[TestNumber])
-			while (1);
-			if(TestNumber == TESTSIZE)
-			while(1);
+			if (FilterOut != TestDataFiltered[TestNumber])
+				while (1);
+			if (TestNumber == TESTSIZE - 1)
+				while (1);
 			TestNumber++;
 #endif
 
@@ -97,9 +105,10 @@ void main(void) {
 	PEX_RTOS_START(); /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
 #endif
 	/*** End of RTOS startup code.  ***/
-  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
-  for(;;){}
-  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+	/*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+	for (;;) {
+	}
+	/*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 /* END main */

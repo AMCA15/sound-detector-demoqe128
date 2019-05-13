@@ -11,9 +11,10 @@
 #define ORDER 21
 
 #define FILTERTEST    // Uncomment for use the filter test mode
-#define TESTSIZE 21
+#define TESTSIZE 50
 
 extern char FilterState;
+extern char fpos;
 extern signed char Coeff[];
 extern char signed NewCoeff[];
 extern char FilterIn[];
