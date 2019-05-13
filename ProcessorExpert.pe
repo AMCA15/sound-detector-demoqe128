@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PEproject>
   <Header>
-    <Name>sound-detector-demoqe128</Name>
-    <SavedBy>Anderson</SavedBy>
-    <ModificationStamp>118</ModificationStamp>
-    <Date>2019-05-09</Date>
+    <Name>Oscilloscope</Name>
+    <SavedBy>user</SavedBy>
+    <ModificationStamp>125</ModificationStamp>
+    <Date>2019-05-13</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.9.0.RT6_b1411-0406</PEversion>
   </Header>
@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>102</ProjectCompNumb>
+    <ProjectCompNumb>105</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
@@ -6201,7 +6201,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>19.922944</Value>
+        <Value>29.884416</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>HighFixedClk</ItemSymbol>
@@ -6284,7 +6284,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>512</Value>
+        <Value>1536</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>High_FLL_Default</ItemSymbol>
@@ -6298,7 +6298,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>1216</Value>
+        <Value>1824</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>High_FLL_32kHz</ItemSymbol>
@@ -6312,7 +6312,7 @@
         <ReadOnly>true</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>39.845888</Value>
+        <Value>59.768832</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>LowSpeed</ItemSymbol>
