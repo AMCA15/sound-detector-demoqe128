@@ -8,10 +8,10 @@
 #ifndef FILTER_H_
 #define FILTER_H_
 
-#define ORDER 21
+#define ORDER 51
 
 #define FILTERTEST    // Uncomment for use the filter test mode
-#define TESTSIZE 50
+#define TESTSIZE 100
 
 extern char FilterState;
 extern char fpos;

@@ -65,14 +65,11 @@ void main(void) {
 
 	FilterState = ON;
 
+
 	for (;;) {
 		if (is_Data_Ready) {
 			if (FilterState == ON) {
-				index = fpos;
-				if (index == 255) {
-					index = ORDER;
-				}
-				for (i = 0, FilterOut = 0; i < ORDER; i++, index--) {
+				for (i = 0, FilterOut = 0, index = fpos; i < ORDER; i++, index--) {
 					FilterOut += Coeff[i] * FilterIn[index];
 					if (index == 0) {
 						index = ORDER;
@@ -105,10 +102,9 @@ void main(void) {
 	PEX_RTOS_START(); /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
 #endif
 	/*** End of RTOS startup code.  ***/
-	/*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
-	for (;;) {
-	}
-	/*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
+  /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
+  for(;;){}
+  /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 /* END main */
