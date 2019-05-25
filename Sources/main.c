@@ -50,58 +50,58 @@
 #include "Frame.h"
 
 void main(void) {
-	/* Write your local variable definition here */
-	char i;
-	char index;
+    /* Write your local variable definition here */
+    char i;
+    char index;
 
-	/*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
-	PE_low_level_init();
-	/*** End of Processor Expert internal initialisation.                    ***/
+    /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+    PE_low_level_init();
+    /*** End of Processor Expert internal initialisation.                    ***/
 
-	Cpu_EnableInt();
+    Cpu_EnableInt();
 
-	// Start the continuous conversion, trigger by hardware
-	//AD1_Start();
+    // Start the continuous conversion, trigger by hardware
+    //AD1_Start();
 
-	FilterState = ON;
+    FilterState = ON;
+    SENSOR_2 = ON;
 
-
-	for (;;) {
-		if (is_Data_Ready) {
-			if (FilterState == ON) {
-				for (i = 0, FilterOut = 0, index = fpos; i < ORDER; i++, index--) {
-					FilterOut += Coeff[i] * FilterIn[index];
-					if (index == 0) {
-						index = ORDER;
-					}
-				}
-			} else {
-				FilterOut = FilterIn[fpos];
-			}
+    for (;;) {
+        if (is_Data_Ready) {
+            if (FilterState == ON) {
+                for (i = 0, FilterOut = 0, index = fpos; i < ORDER; i++, index--) {
+                    FilterOut += Coeff[i] * FilterIn[index];
+                    if (index == 0) {
+                        index = ORDER;
+                    }
+                }
+                ANALOG_OUT = (char)(FilterOut / MFILTER);
+            } else {
+                ANALOG_OUT = FilterIn[fpos];
+            }
+            
+            SENSOR_2 = 0; // Not implemented yet
 
 #ifdef FILTERTEST
-			if (FilterOut != TestDataFiltered[TestNumber])
-				while (1);
-			if (TestNumber == TESTSIZE - 1)
-				while (1);
-			TestNumber++;
+            if (FilterOut != TestDataFiltered[TestNumber])
+                while (1);
+            if (TestNumber == TESTSIZE - 1)
+                while (1);
+            TestNumber++;
 #endif
 
-			Channels[0].Data_Ana_L = (char) FilterOut;
-			Channels[0].Data_Ana_H = (char) ((FilterOut >> 6) | (0x03 & FilterOut));
-			Pack(&Osc_Frame, Channels);			// Pack the data
-			AS1_SendBlock(&Osc_Frame, OSC_FRAME_SIZE, &BufferSerialCount); // Send the data
-			is_Data_Ready = 0;
+            Pack(&Frame, Data);			// Pack the data
+            AS1_SendBlock(&Frame, FRAME_SIZE, &BufferSerialCount); // Send the data
+            is_Data_Ready = 0;
+        }
+    }
 
-		}
-	}
-
-	/*** Don't write any code pass this line, or it will be deleted during code generation. ***/
-	/*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
+    /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
+    /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/
 #ifdef PEX_RTOS_START
-	PEX_RTOS_START(); /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
+    PEX_RTOS_START(); /* Startup of the selected RTOS. Macro is defined by the RTOS component. */
 #endif
-	/*** End of RTOS startup code.  ***/
+    /*** End of RTOS startup code.  ***/
   /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
   for(;;){}
   /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/

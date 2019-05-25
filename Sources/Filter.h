@@ -9,6 +9,7 @@
 #define FILTER_H_
 
 #define ORDER 51
+#define MFILTER 128
 
 #define FILTERTEST    // Uncomment for use the filter test mode
 #define TESTSIZE 100

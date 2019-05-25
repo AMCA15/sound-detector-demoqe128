@@ -50,23 +50,23 @@
  ** ===================================================================
  */
 void AD1_OnEnd(void) {
-	static char i = 0;
+    static char i = 0;
 
-	if (fpos < ORDER - 1)
-		fpos++;
-	else
-		fpos = 0;
-	
+    if (fpos < ORDER - 1)
+        fpos++;
+    else
+        fpos = 0;
+    
 #ifdef FILTERTEST
-	FilterIn[fpos] = TestData[i];
-	i++;
+    FilterIn[fpos] = TestData[i];
+    i++;
 #else
-	AD1_GetValue(&FilterIn[fpos]);
+    AD1_GetValue(&FilterIn[fpos]);
 #endif
 
-	is_Data_Ready = 1;		// Flag for data ready
-	Bit1_NegVal();			// For checking sample frequency
-	
+    is_Data_Ready = 1;		// Flag for data ready
+    Bit1_NegVal();			// For checking sample frequency
+    
 }
 
 /*
@@ -85,7 +85,7 @@ void AD1_OnEnd(void) {
  ** ===================================================================
  */
 void AS1_OnError(void) {
-	/* Write your code here ... */
+    /* Write your code here ... */
 }
 
 /*
@@ -100,7 +100,7 @@ void AS1_OnError(void) {
  ** ===================================================================
  */
 void AS1_OnTxChar(void) {
-	/* Write your code here ... */
+    /* Write your code here ... */
 }
 
 /*
@@ -116,7 +116,7 @@ void AS1_OnTxChar(void) {
  ** ===================================================================
  */
 void AS1_OnFreeTxBuf(void) {
-	/* Write your code here ... */
+    /* Write your code here ... */
 }
 
 /*
@@ -134,8 +134,8 @@ void AS1_OnFreeTxBuf(void) {
  ** ===================================================================
  */
 void TI1_OnInterrupt(void) {
-	/* Write your code here ... */
-	AD1_Measure(0);
+    /* Write your code here ... */
+    AD1_Measure(0);
 }
 
 /*
@@ -151,14 +151,16 @@ void TI1_OnInterrupt(void) {
  ** ===================================================================
  */
 void FilterButton_OnInterrupt(void) {
-	/* place your FilterButton interrupt procedure body here*/
-	if (FilterState == ON) {
-		FilterState = OFF;
-		FilterLED_SetVal();
-	} else {
-		FilterState = ON;
-		FilterLED_ClrVal();
-	}
+    /* place your FilterButton interrupt procedure body here*/
+    if (FilterState == ON) {
+        FilterState = OFF;
+        SENSOR_1 = OFF;
+        FilterLED_SetVal();
+    } else {
+        FilterState = ON;
+        SENSOR_2 = ON;
+        FilterLED_ClrVal();
+    }
 }
 
 /*
@@ -186,39 +188,39 @@ void FilterButton_OnInterrupt(void) {
  ** ===================================================================
  */
 void AS1_OnRxCharExt(AS1_TComData Chr) {
-	/* Write your code here ... */
-	static char State = IDLE;
-	static char i;
+    /* Write your code here ... */
+    static char State = IDLE;
+    static char i;
 
-	char OpCode = Chr & OPCODEMASK;
-	char OpData = Chr & OPDATA;
+    char OpCode = Chr & OPCODEMASK;
+    char OpData = Chr & OPDATA;
 
-	if (State == BUSY) {
-		if (i < ORDER) {
-			NewCoeff[i] = Chr; // Save the new coefficients in a temporary buffer before update them
-			i++;
-		} else {
-			UpdateCoeff(NewCoeff);
-			State = IDLE;			 // Finish the update process
-			OpCode = 0;				 // Force to skip the next else in this loop
-		}
-	} else {
-		switch (OpCode) {
+    if (State == BUSY) {
+        if (i < ORDER) {
+            NewCoeff[i] = Chr; // Save the new coefficients in a temporary buffer before update them
+            i++;
+        } else {
+            UpdateCoeff(NewCoeff);
+            State = IDLE;			 // Finish the update process
+            OpCode = 0;				 // Force to skip the next else in this loop
+        }
+    } else {
+        switch (OpCode) {
 
-		case OPCODEBUZZER:
-			if (OpData == ON) {
-				Buzzer_Enable();
-			} else {
-				Buzzer_Disable();
-			}
-			break;
+        case OPCODEBUZZER:
+            if (OpData == ON) {
+                Buzzer_Enable();
+            } else {
+                Buzzer_Disable();
+            }
+            break;
 
-		case OPCODEUPCOEFF:
-			State = BUSY;	// Start the update filter's coefficients process
-			i = 0;
-			break;
-		}
-	}
+        case OPCODEUPCOEFF:
+            State = BUSY;	// Start the update filter's coefficients process
+            i = 0;
+            break;
+        }
+    }
 }
 
 /* END Events */

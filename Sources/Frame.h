@@ -10,39 +10,46 @@
 
 #include "PE_Types.h"
 
-#define CHA 0
-#define CHB 1
-#define OSC_FRAME_SIZE 4
+#define FRAME_SIZE 2
+#define ANALOG_OUT Data.Analog.byte
+#define SENSOR_1   Data.Digital.sensor1
+#define SENSOR_2   Data.Digital.sensor1
 
 extern volatile char is_Data_Ready;
 extern volatile char *BufferSerialCount;
 
-// Data struct for channels (Digitals & Analogs)
-struct Data {
-	word Data_Ana_H :6;
-	word Data_Ana_L :6;
-	word Data_Dig   :1;
+// Struct for Digitals & Analog Data
+struct DATA {
+    union ANALOG
+    {
+        char signed byte;
+        struct HALFBYTE
+        {
+            char low  : 4;
+            char high : 4;
+        } halfbyte;
+    } Analog;
+    struct DIGITAL 
+    {
+        char sensor1 : 1;
+        char sensor2 : 1;
+    } Digital;
 };
-extern struct Data Channels[2];
+extern struct DATA Data;
 
 // Data frame struct
-struct Frame {
-	byte DCHA_Ana_Low  :6;
-	byte DCHA_Dig_Low  :1;
-	byte Sync_CHA_Low  :1;
-	byte DCHA_Ana_High :6;
-	byte DCHA_Dig_High :1;
-	byte Sync_CHA_High :1;
-	byte DCHB_Ana_Low  :6;
-	byte DCHB_Dig_Low  :1;
-	byte Sync_CHB_Low  :1;
-	byte DCHB_Ana_High :6;
-	byte DCHB_Dig_High :1;
-	byte Sync_CHB_High :1;
+struct FRAME {
+    byte Ana_low  : 4;
+    byte          : 3;
+    byte Syn_low  : 1;
+    byte Ana_high : 4;
+    byte Dig_1    : 1;
+    byte Dig_2    : 1;
+    byte Syn_high : 1;
 };
-extern struct Frame Osc_Frame;
+extern struct FRAME Frame;
 
 // Function for packing the data
-void Pack(struct Frame *frame, struct Data *channels);
+void Pack(struct FRAME *frame, struct DATA data);
 
 #endif /* FRAME_H_ */
