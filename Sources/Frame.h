@@ -13,7 +13,7 @@
 #define FRAME_SIZE 2
 #define ANALOG_OUT Data.Analog.byte
 #define SENSOR_1   Data.Digital.sensor1
-#define SENSOR_2   Data.Digital.sensor1
+#define SENSOR_2   Data.Digital.sensor2
 
 extern volatile char is_Data_Ready;
 extern volatile char *BufferSerialCount;

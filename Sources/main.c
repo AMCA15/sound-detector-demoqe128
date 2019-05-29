@@ -32,12 +32,12 @@
 #include "AD1.h"
 #include "AS1.h"
 #include "TI1.h"
-#include "Bits1.h"
 #include "Bit1.h"
 #include "FC1.h"
 #include "FilterButton.h"
 #include "FilterLED.h"
 #include "Buzzer.h"
+#include "Sensor2.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -64,7 +64,7 @@ void main(void) {
     //AD1_Start();
 
     FilterState = ON;
-    SENSOR_2 = ON;
+    SENSOR_1 = ON;
 
     for (;;) {
         if (is_Data_Ready) {
@@ -80,8 +80,8 @@ void main(void) {
                 ANALOG_OUT = FilterIn[fpos];
             }
             
-            SENSOR_2 = 0; // Not implemented yet
-
+            SENSOR_2 = Sensor2_GetVal();
+            
 #ifdef FILTERTEST
             if (FilterOut != TestDataFiltered[TestNumber])
                 while (1);

@@ -158,7 +158,7 @@ void FilterButton_OnInterrupt(void) {
         FilterLED_SetVal();
     } else {
         FilterState = ON;
-        SENSOR_2 = ON;
+        SENSOR_1 = ON;
         FilterLED_ClrVal();
     }
 }
