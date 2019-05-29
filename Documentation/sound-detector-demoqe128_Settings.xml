@@ -948,16 +948,16 @@ asm(BGND);
       <Disable v="don&amp;apos;t generate code" />
       <EnableEvent v="don&amp;apos;t generate code" />
       <DisableEvent v="don&amp;apos;t generate code" />
-      <RecvChar v="generate code" />
-      <SendChar v="generate code" />
+      <RecvChar v="don&amp;apos;t generate code" />
+      <SendChar v="don&amp;apos;t generate code" />
       <RecvBlock v="don&amp;apos;t generate code" />
       <SendBlock v="generate code" />
       <ClearRxBuf v="don&amp;apos;t generate code" />
-      <ClearTxBuf v="generate code" />
+      <ClearTxBuf v="don&amp;apos;t generate code" />
       <CharsInRxBuf v="don&amp;apos;t generate code" />
-      <GetCharsInRxBuf v="generate code" />
+      <GetCharsInRxBuf v="don&amp;apos;t generate code" />
       <CharsInTxBuf v="don&amp;apos;t generate code" />
-      <GetCharsInTxBuf v="generate code" />
+      <GetCharsInTxBuf v="don&amp;apos;t generate code" />
       <SetBaudRateMode v="don&amp;apos;t generate code" />
       <GetError v="don&amp;apos;t generate code" />
       <GetBreak v="don&amp;apos;t generate code" />
@@ -979,24 +979,15 @@ asm(BGND);
       <Event_module_name v="Events" />
       <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
       <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
-      <event name="OnError" v="generate code">
-        <Event_procedure_name v="AS1_OnError" />
-        <Priority v="same as interrupt" />
-      </event>
+      <event name="OnError" v="don&amp;apos;t generate code" />
       <event name="OnRxChar" v="don&amp;apos;t generate code" />
       <event name="OnRxCharExt" v="generate code">
         <Event_procedure_name v="AS1_OnRxCharExt" />
         <Priority v="same as interrupt" />
       </event>
-      <event name="OnTxChar" v="generate code">
-        <Event_procedure_name v="AS1_OnTxChar" />
-        <Priority v="same as interrupt" />
-      </event>
+      <event name="OnTxChar" v="don&amp;apos;t generate code" />
       <event name="OnFullRxBuf" v="don&amp;apos;t generate code" />
-      <event name="OnFreeTxBuf" v="generate code">
-        <Event_procedure_name v="AS1_OnFreeTxBuf" />
-        <Priority v="same as interrupt" />
-      </event>
+      <event name="OnFreeTxBuf" v="don&amp;apos;t generate code" />
       <event name="OnBreak" v="don&amp;apos;t generate code" />
       <event name="OnIdle" v="don&amp;apos;t generate code" />
       <event name="OnTxComplete" v="don&amp;apos;t generate code" />

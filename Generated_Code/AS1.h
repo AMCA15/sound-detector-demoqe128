@@ -6,7 +6,7 @@
 **     Component   : AsynchroSerial
 **     Version     : Component 02.611, Driver 01.33, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2019-05-28, 19:59, # CodeGen: 36
+**     Date/Time   : 2019-05-28, 20:59, # CodeGen: 41
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -53,12 +53,7 @@
 **
 **
 **     Contents    :
-**         RecvChar        - byte AS1_RecvChar(AS1_TComData *Chr);
-**         SendChar        - byte AS1_SendChar(AS1_TComData Chr);
-**         SendBlock       - byte AS1_SendBlock(AS1_TComData *Ptr, word Size, word *Snd);
-**         ClearTxBuf      - byte AS1_ClearTxBuf(void);
-**         GetCharsInRxBuf - word AS1_GetCharsInRxBuf(void);
-**         GetCharsInTxBuf - word AS1_GetCharsInTxBuf(void);
+**         SendBlock - byte AS1_SendBlock(AS1_TComData *Ptr, word Size, word *Snd);
 **
 **     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -147,64 +142,6 @@
 
 extern byte AS1_OutLen;                /* Length of the output buffer content */
 
-byte AS1_RecvChar(AS1_TComData *Chr);
-/*
-** ===================================================================
-**     Method      :  AS1_RecvChar (component AsynchroSerial)
-**     Description :
-**         If any data is received, this method returns one character,
-**         otherwise it returns an error code (it does not wait for
-**         data). This method is enabled only if the receiver property
-**         is enabled.
-**         [Note:] Because the preferred method to handle error and
-**         break exception in the interrupt mode is to use events
-**         <OnError> and <OnBreak> the return value ERR_RXEMPTY has
-**         higher priority than other error codes. As a consequence the
-**         information about an exception in interrupt mode is returned
-**         only if there is a valid character ready to be read.
-**     Parameters  :
-**         NAME            - DESCRIPTION
-**       * Chr             - Pointer to a received character
-**     Returns     :
-**         ---             - Error code, possible codes:
-**                           ERR_OK - OK
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-**                           ERR_RXEMPTY - No data in receiver
-**                           ERR_BREAK - Break character is detected
-**                           (only when the <Interrupt service> property
-**                           is disabled and the <Break signal> property
-**                           is enabled)
-**                           ERR_COMMON - common error occurred (the
-**                           <GetError> method can be used for error
-**                           specification)
-** ===================================================================
-*/
-
-byte AS1_SendChar(AS1_TComData Chr);
-/*
-** ===================================================================
-**     Method      :  AS1_SendChar (component AsynchroSerial)
-**     Description :
-**         Sends one character to the channel. If the component is
-**         temporarily disabled (Disable method) SendChar method only
-**         stores data into an output buffer. In case of a zero output
-**         buffer size, only one character can be stored. Enabling the
-**         component (Enable method) starts the transmission of the
-**         stored data. This method is available only if the
-**         transmitter property is enabled.
-**     Parameters  :
-**         NAME            - DESCRIPTION
-**         Chr             - Character to send
-**     Returns     :
-**         ---             - Error code, possible codes:
-**                           ERR_OK - OK
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-**                           ERR_TXFULL - Transmitter is full
-** ===================================================================
-*/
-
 byte AS1_SendBlock(const AS1_TComData * Ptr,word Size,word *Snd);
 /*
 ** ===================================================================
@@ -227,54 +164,6 @@ byte AS1_SendBlock(const AS1_TComData * Ptr,word Size,word *Snd);
 **                           the active speed mode
 **                           ERR_TXFULL - It was not possible to send
 **                           requested number of bytes
-** ===================================================================
-*/
-
-byte AS1_ClearTxBuf(void);
-/*
-** ===================================================================
-**     Method      :  AS1_ClearTxBuf (component AsynchroSerial)
-**     Description :
-**         Clears the transmit buffer.
-**         This method is available only if non-zero length of the
-**         output buffer is defined and the receiver property is
-**         enabled.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Error code, possible codes:
-**                           ERR_OK - OK
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-** ===================================================================
-*/
-
-word AS1_GetCharsInRxBuf(void);
-/*
-** ===================================================================
-**     Method      :  AS1_GetCharsInRxBuf (component AsynchroSerial)
-**     Description :
-**         Returns the number of characters in the input buffer. This
-**         method is available only if the receiver property is enabled.
-**     Parameters  : None
-**     Returns     :
-**         ---             - The number of characters in the input
-**                           buffer.
-** ===================================================================
-*/
-
-#define AS1_GetCharsInTxBuf() \
-((word) AS1_OutLen)                    /* Return number of chars in the transmitter buffer */
-/*
-** ===================================================================
-**     Method      :  AS1_GetCharsInTxBuf (component AsynchroSerial)
-**     Description :
-**         Returns the number of characters in the output buffer. This
-**         method is available only if the transmitter property is
-**         enabled.
-**     Parameters  : None
-**     Returns     :
-**         ---             - The number of characters in the output
-**                           buffer.
 ** ===================================================================
 */
 

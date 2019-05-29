@@ -948,8 +948,8 @@ asm(BGND);
       <Disable v="don&amp;apos;t generate code" />
       <EnableEvent v="don&amp;apos;t generate code" />
       <DisableEvent v="don&amp;apos;t generate code" />
-      <RecvChar v="generate code" />
-      <SendChar v="generate code" />
+      <RecvChar v="don&amp;apos;t generate code" />
+      <SendChar v="don&amp;apos;t generate code" />
       <RecvBlock v="don&amp;apos;t generate code" />
       <SendBlock v="generate code" />
       <ClearRxBuf v="don&amp;apos;t generate code" />
@@ -988,15 +988,9 @@ asm(BGND);
         <Event_procedure_name v="AS1_OnRxCharExt" />
         <Priority v="same as interrupt" />
       </event>
-      <event name="OnTxChar" v="generate code">
-        <Event_procedure_name v="AS1_OnTxChar" />
-        <Priority v="same as interrupt" />
-      </event>
+      <event name="OnTxChar" v="don&amp;apos;t generate code" />
       <event name="OnFullRxBuf" v="don&amp;apos;t generate code" />
-      <event name="OnFreeTxBuf" v="generate code">
-        <Event_procedure_name v="AS1_OnFreeTxBuf" />
-        <Priority v="same as interrupt" />
-      </event>
+      <event name="OnFreeTxBuf" v="don&amp;apos;t generate code" />
       <event name="OnBreak" v="don&amp;apos;t generate code" />
       <event name="OnIdle" v="don&amp;apos;t generate code" />
       <event name="OnTxComplete" v="don&amp;apos;t generate code" />
@@ -1208,7 +1202,7 @@ autoselected pull
     <Enabled v="Y" />
     <Properties>
       <Component_name v="Sensor2" />
-      <Pin_for_I_O v="PTD1_KBI2P1_MOSI2" />
+      <Pin_for_I_O v="PTA3_KBI1P3_SCL1_ADP3" />
       <Pull_resistor v="pull up" />
       <Open_drain sel_value="The settings is irrelevant for input direction">
         
@@ -1216,8 +1210,8 @@ push-pull
 
         <EmptySection_DummyValue />
       </Open_drain>
-      <Slew_rate_control_for_PTD1 v="no" />
-      <Drive_strength_for_PTD1 v="Low" />
+      <Slew_rate_control_for_PTA3 v="no" />
+      <Drive_strength_for_PTA3 v="High" />
       <Direction v="Input" />
       <group name="Initialization">
         <Init__direction v="Input" />
