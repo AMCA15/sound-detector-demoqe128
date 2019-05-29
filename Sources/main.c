@@ -66,6 +66,7 @@ void main(void) {
     FilterState = ON;
     SENSOR_1 = ON;
 
+    
     for (;;) {
         if (is_Data_Ready) {
             if (FilterState == ON) {
@@ -80,7 +81,11 @@ void main(void) {
                 ANALOG_OUT = FilterIn[fpos];
             }
             
-            SENSOR_2 = Sensor2_GetVal();
+            SENSOR_2 = (Sensor2_GetVal() == 0x08);
+
+            Pack(&Frame, Data);			// Pack the data
+            AS1_SendBlock(&Frame, FRAME_SIZE, &BufferSerialCount); // Send the data
+            is_Data_Ready = 0;
             
 #ifdef FILTERTEST
             if (FilterOut != TestDataFiltered[TestNumber])
@@ -89,10 +94,7 @@ void main(void) {
                 while (1);
             TestNumber++;
 #endif
-
-            Pack(&Frame, Data);			// Pack the data
-            AS1_SendBlock(&Frame, FRAME_SIZE, &BufferSerialCount); // Send the data
-            is_Data_Ready = 0;
+            
         }
     }
 

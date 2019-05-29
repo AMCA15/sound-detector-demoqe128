@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PEproject>
   <Header>
-    <Name>sound-detector-demoqe128</Name>
-    <SavedBy>Anderson</SavedBy>
-    <ModificationStamp>131</ModificationStamp>
-    <Date>2019-05-28</Date>
+    <Name>Oscilloscope</Name>
+    <SavedBy>user</SavedBy>
+    <ModificationStamp>138</ModificationStamp>
+    <Date>2019-05-29</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.9.0.RT6_b1411-0406</PEversion>
   </Header>
@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>111</ProjectCompNumb>
+    <ProjectCompNumb>121</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
@@ -7917,7 +7917,7 @@
       <Value7>true</Value7>
       <ItemId8>95</ItemId8>
       <Value8>true</Value8>
-      <ItemId9>109</ItemId9>
+      <ItemId9>120</ItemId9>
       <Value9>true</Value9>
     </BoolList_BeanConfig>
     <BoolList_TaskConfig>
@@ -8012,7 +8012,7 @@
       <Value7>true</Value7>
       <ItemId8>95</ItemId8>
       <Value8>true</Value8>
-      <ItemId9>109</ItemId9>
+      <ItemId9>120</ItemId9>
       <Value9>true</Value9>
     </BoolList_BeanConfig>
     <BoolList_TaskConfig>
@@ -14356,7 +14356,7 @@
   <Bean>
     <BeanType>BitIO</BeanType>
     <Name>Sensor2</Name>
-    <CompNumb>109</CompNumb>
+    <CompNumb>120</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
     <IconName>BITIO</IconName>
