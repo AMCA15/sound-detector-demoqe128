@@ -12,11 +12,6 @@ Module "AD1"       (component ADC)
                 handler may cause a system overflow.
    - AD1_Measure -This method performs one measurement on all channels that are set in the component inspector. (Note: If the 
                 <number of conversions> is more than one the conversion of A/D channels is performed specified number of times.)
-   - AD1_EnableIntChanTrigger -Enables the internal trigger mode. A conversion of one required channel will be launched by 
-                internal sync pulse. If the <Number of conversions> property is greater than 1, a conversion will be launched 
-                more than once (by an internal signal) according to <Number of conversions>. It's possible to disable the 
-                trigger mode by <Stop> method.  [ Version specific information for other derivatives than Freescale HCS12 and 
-                HCS12X ]   This EnableIntChanTrigger method is available only when the <Internal trigger> property is enabled.
    - AD1_GetValue -Returns the last measured values for all channels. Format and width of the value is a native format of the 
                 A/D converter.
 
@@ -25,11 +20,6 @@ Module "AS1"       (component AsynchroSerial)
                 buffer is defined and the transmitter property is enabled.
 
 Module "TI1"       (component TimerInt)
-
-Module "FC1"       (component FreeCntr)
-   - FC1_Reset -This method resets the timer-counter (sets to zero for up-counting HW or to appropriate value for down-counting 
-                HW). The method is available only if the counter register can be set by software and the counter is not shared.
-   - FC1_GetCounterValue -This method returns a content of the counter.
 
 Module "FilterButton" (component ExtInt)
    - FilterButton_GetVal -Returns the actual value of the input pin of the component.

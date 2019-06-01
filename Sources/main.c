@@ -33,7 +33,6 @@
 #include "AS1.h"
 #include "TI1.h"
 #include "Bit1.h"
-#include "FC1.h"
 #include "FilterButton.h"
 #include "FilterLED.h"
 #include "Buzzer.h"
@@ -60,12 +59,8 @@ void main(void) {
 
     Cpu_EnableInt();
 
-    // Start the continuous conversion, trigger by hardware
-    //AD1_Start();
-
     FilterState = ON;
     SENSOR_1 = ON;
-
     
     for (;;) {
         if (is_Data_Ready) {
